@@ -1,0 +1,10 @@
+{
+  // Static-site deployment config for Cloudflare Workers.
+  // The site is fully static (Astro builds to ./dist), so we serve those files
+  // directly as Workers Assets — no server, no KV, no sessions needed.
+  "name": "the-savvy-granny",
+  "compatibility_date": "2026-06-14",
+  "assets": {
+    "directory": "./dist"
+  }
+}

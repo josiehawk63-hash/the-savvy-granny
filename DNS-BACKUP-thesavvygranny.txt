@@ -1,0 +1,18 @@
+DNS BACKUP — thesavvygranny.com
+Captured: 2026-06-14, before migrating DNS to Cloudflare
+Original nameservers: ns61.domaincontrol.com / ns62.domaincontrol.com (GoDaddy)
+
+================= EMAIL — MUST PRESERVE (Microsoft 365 via GoDaddy) =================
+MX     @                      0 thesavvygranny-com.mail.protection.outlook.com.
+TXT    @                      v=spf1 include:secureserver.net -all
+TXT    @                      NETORGFT20784569.onmicrosoft.com         (M365 domain verification)
+TXT    _dmarc                 v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;
+CNAME  autodiscover           autodiscover.outlook.com.
+SRV    _sip._tls              100 1 443  sipdir.online.lync.com.
+SRV    _sipfederationtls._tcp 100 1 5061 sipfed.online.lync.com.
+CNAME  lyncdiscover           webdir.online.lync.com.
+
+================= WEBSITE — these will be REPLACED to point to the new site =========
+A      @                      76.223.105.230   (old GoDaddy site — will change)
+A      @                      13.248.243.5     (old GoDaddy site — will change)
+CNAME  www                    -> apex (thesavvygranny.com)
