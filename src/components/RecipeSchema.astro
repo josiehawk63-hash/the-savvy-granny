@@ -1,0 +1,59 @@
+---
+// Emits Recipe structured data (JSON-LD) so Google can show this page as a
+// rich result with photo, cook time, etc. This is a major SEO lever for recipes.
+interface Props {
+  name: string;
+  description: string;
+  image?: string;       // absolute URL
+  author?: string;
+  datePublished?: string;
+  prepTime?: string;    // human text like "15 minutes"
+  cookTime?: string;
+  totalTime?: string;
+  servings?: string;
+  category?: string;
+  cuisine?: string;
+  keywords?: string[];
+  ingredients?: string[];
+  instructions?: string[];
+}
+const p = Astro.props;
+
+// Convert "15 minutes" / "1 hour 10 minutes" to ISO 8601 duration (PT15M) for schema.
+function toISODuration(text?: string): string | undefined {
+  if (!text) return undefined;
+  const hours = /(\d+)\s*h(our)?/i.exec(text)?.[1];
+  const mins = /(\d+)\s*m(in)?/i.exec(text)?.[1];
+  if (!hours && !mins) return undefined;
+  return `PT${hours ? hours + 'H' : ''}${mins ? mins + 'M' : ''}`;
+}
+
+const schema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Recipe',
+  name: p.name,
+  description: p.description,
+  author: { '@type': 'Person', name: p.author ?? 'The Savvy Granny' },
+};
+if (p.image) schema.image = [p.image];
+if (p.datePublished) schema.datePublished = p.datePublished;
+const prep = toISODuration(p.prepTime);
+const cook = toISODuration(p.cookTime);
+const total = toISODuration(p.totalTime);
+if (prep) schema.prepTime = prep;
+if (cook) schema.cookTime = cook;
+if (total) schema.totalTime = total;
+if (p.servings) schema.recipeYield = p.servings;
+if (p.category) schema.recipeCategory = p.category;
+if (p.cuisine) schema.recipeCuisine = p.cuisine;
+if (p.keywords && p.keywords.length) schema.keywords = p.keywords.join(', ');
+if (p.ingredients && p.ingredients.length) schema.recipeIngredient = p.ingredients;
+if (p.instructions && p.instructions.length) {
+  schema.recipeInstructions = p.instructions.map((step) => ({
+    '@type': 'HowToStep',
+    text: step,
+  }));
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

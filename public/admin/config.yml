@@ -1,0 +1,50 @@
+# Visual editor config. The "backend" is filled in during deployment (Task 6),
+# once your site lives in a GitHub repo connected to Cloudflare Pages.
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/the-savvy-granny   # <-- set during deploy
+  branch: main
+
+# Where uploaded photos are stored and how they're referenced on the site.
+media_folder: "public/images/recipes"
+public_folder: "/images/recipes"
+
+collections:
+  - name: "recipes"
+    label: "Recipes"
+    label_singular: "Recipe"
+    folder: "src/content/recipes"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Short description (shows on cards & Google)", name: "description", widget: "text" }
+      - { label: "Publish date", name: "pubDate", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "Photo", name: "image", widget: "image", required: false }
+      - { label: "Photo description (for accessibility)", name: "imageAlt", widget: "string", required: false }
+      - { label: "Prep time (e.g. 15 minutes)", name: "prepTime", widget: "string", required: false }
+      - { label: "Cook time (e.g. 30 minutes)", name: "cookTime", widget: "string", required: false }
+      - { label: "Total time (e.g. 45 minutes)", name: "totalTime", widget: "string", required: false }
+      - { label: "Servings (e.g. 4 servings)", name: "servings", widget: "string", required: false }
+      - { label: "Cost (e.g. $8 total / ~$2 per serving)", name: "cost", widget: "string", required: false }
+      - { label: "Category (e.g. Dinner)", name: "category", widget: "string", required: false }
+      - { label: "Cuisine (e.g. Italian)", name: "cuisine", widget: "string", required: false }
+      - { label: "Keywords (for SEO)", name: "keywords", widget: "list", required: false }
+      - { label: "Ingredients", name: "ingredients", widget: "list", field: { label: "Ingredient", name: "item", widget: "string" } }
+      - { label: "Instructions (one step each)", name: "instructions", widget: "list", field: { label: "Step", name: "step", widget: "text" } }
+      - { label: "Granny's Notes", name: "notes", widget: "text", required: false }
+      - label: "Affiliate products to recommend"
+        name: "products"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Product name", name: "name", widget: "string" }
+          - { label: "Affiliate link", name: "url", widget: "string" }
+          - { label: "Short description", name: "description", widget: "string", required: false }
+          - { label: "Product image", name: "image", widget: "image", required: false }
+      - { label: "Feature on homepage?", name: "featured", widget: "boolean", default: false }
+      - { label: "Save as draft (hide from site)?", name: "draft", widget: "boolean", default: false }
+      - { label: "Extra notes / story (optional)", name: "body", widget: "markdown", required: false }

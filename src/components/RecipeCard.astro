@@ -1,0 +1,27 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  description?: string;
+  image?: string;
+  cost?: string;
+  totalTime?: string;
+  category?: string;
+}
+const { href, title, description, image, cost, totalTime, category } = Astro.props;
+---
+
+<a class="card" href={href}>
+  {image
+    ? <img class="thumb" src={image} alt={title} loading="lazy" />
+    : <div class="thumb-fallback">🍲</div>}
+  <div class="body">
+    {category && <span class="eyebrow">{category}</span>}
+    <h3>{title}</h3>
+    {description && <p class="muted" style="margin:0 0 0.6rem; font-size:0.92rem;">{description}</p>}
+    <div class="meta">
+      {cost && <span>💲 {cost}</span>}
+      {totalTime && <span>⏱ {totalTime}</span>}
+    </div>
+  </div>
+</a>

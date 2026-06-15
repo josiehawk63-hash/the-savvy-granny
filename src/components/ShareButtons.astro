@@ -1,0 +1,42 @@
+---
+interface Props {
+  url: URL | string;
+  title: string;
+  image?: string; // absolute URL recommended for Pinterest
+}
+const { url, title, image } = Astro.props;
+const u = encodeURIComponent(url.toString());
+const t = encodeURIComponent(title);
+const i = image ? encodeURIComponent(image.toString()) : '';
+
+const pinterest = `https://pinterest.com/pin/create/button/?url=${u}&media=${i}&description=${t}`;
+const facebook = `https://www.facebook.com/sharer/sharer.php?u=${u}`;
+const x = `https://twitter.com/intent/tweet?url=${u}&text=${t}`;
+const email = `mailto:?subject=${t}&body=${u}`;
+---
+
+<div class="share">
+  <span class="share-label">Share:</span>
+  <a class="sb pin" href={pinterest} target="_blank" rel="noopener" aria-label="Share on Pinterest">📌 Pin</a>
+  <a class="sb fb" href={facebook} target="_blank" rel="noopener" aria-label="Share on Facebook">f Share</a>
+  <a class="sb x" href={x} target="_blank" rel="noopener" aria-label="Share on X">✕ Post</a>
+  <a class="sb em" href={email} aria-label="Share by email">✉ Email</a>
+</div>
+
+<style>
+  .share { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .share-label { font-weight: 700; color: var(--muted); }
+  .sb {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    color: #fff;
+  }
+  .pin { background: #e60023; }
+  .fb { background: #1877f2; }
+  .x { background: #111; }
+  .em { background: var(--muted); }
+  .sb:hover { color: #fff; opacity: 0.9; }
+</style>

@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with The Savvy Granny — questions, recipe requests, and partnership inquiries welcome."
+>
+  <article class="container page">
+    <span class="eyebrow">Say hello</span>
+    <h1>Contact</h1>
+    <p>
+      Got a question, a recipe request, or just want to say hi? I'd love to hear from you.
+    </p>
+
+    <!--
+      This form uses Formspree (free) so submissions email you without any backend.
+      To turn it on: create a free form at https://formspree.io, then replace
+      YOUR_FORM_ID below with the one they give you. Until then it's display-only.
+    -->
+    <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <label>
+        Your name
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        Your email
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        Message
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+      <button type="submit" class="btn">Send message</button>
+    </form>
+    <p class="muted note">
+      Heads up: the form needs a free Formspree ID wired in before it can send — I'll
+      walk you through that, or we can swap in a plain email link instead.
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .page { max-width: 640px; padding: 2.5rem 1.25rem 2rem; }
+  .page h1 { font-size: 2.3rem; margin: 0.3rem 0 0.8rem; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.2rem; }
+  label { font-weight: 700; display: flex; flex-direction: column; gap: 0.35rem; }
+  input, textarea {
+    font: inherit; padding: 0.6rem 0.7rem; border: 1px solid var(--line);
+    border-radius: 10px; background: var(--surface); font-weight: 400;
+  }
+  input:focus, textarea:focus { outline: 2px solid var(--brand); border-color: var(--brand); }
+  button { align-self: flex-start; border: none; cursor: pointer; }
+  .note { font-size: 0.85rem; margin-top: 0.8rem; }
+</style>

@@ -1,0 +1,45 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="cols">
+      <div>
+        <strong>The Savvy Granny</strong>
+        <p class="muted">Budget-friendly recipes and smart finds for a well-fed, well-spent life.</p>
+      </div>
+      <nav>
+        <a href="/recipes">Recipes</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/disclosure">Affiliate Disclosure</a>
+      </nav>
+    </div>
+    <hr />
+    <p class="fine muted">
+      &copy; {year} The Savvy Granny. As an Amazon Associate and affiliate partner, this site earns
+      from qualifying purchases. See our <a href="/disclosure">affiliate disclosure</a>.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    margin-top: 4rem;
+    padding: 2.5rem 0 2rem;
+  }
+  .cols {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .cols p { margin: 0.3rem 0 0; max-width: 32ch; }
+  .site-footer nav { display: flex; flex-direction: column; gap: 0.4rem; }
+  .site-footer nav a { text-decoration: none; font-weight: 600; }
+  hr { border: none; border-top: 1px solid var(--line); margin: 1.5rem 0; }
+  .fine { font-size: 0.82rem; }
+</style>

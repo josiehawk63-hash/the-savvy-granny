@@ -1,0 +1,44 @@
+---
+interface Props {
+  name: string;
+  url: string;
+  description?: string;
+  image?: string;
+}
+const { name, url, description, image } = Astro.props;
+---
+
+<a class="product" href={url} target="_blank" rel="sponsored nofollow noopener">
+  {image
+    ? <img class="p-img" src={image} alt={name} loading="lazy" />
+    : <div class="p-img p-fallback">🛒</div>}
+  <div class="p-body">
+    <strong class="p-name">{name}</strong>
+    {description && <p class="p-desc muted">{description}</p>}
+    <span class="p-cta">View on store →</span>
+  </div>
+</a>
+
+<style>
+  .product {
+    display: flex;
+    gap: 0.9rem;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 0.8rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .product:hover { border-color: var(--brand); transform: translateY(-2px); }
+  .p-img { width: 78px; height: 78px; border-radius: 10px; object-fit: cover; flex: none; }
+  .p-fallback {
+    display: flex; align-items: center; justify-content: center;
+    background: #f3ecdd; font-size: 1.8rem;
+  }
+  .p-name { display: block; font-size: 1.02rem; }
+  .p-desc { margin: 0.15rem 0 0.3rem; font-size: 0.88rem; }
+  .p-cta { color: var(--brand-dark); font-weight: 700; font-size: 0.88rem; }
+</style>

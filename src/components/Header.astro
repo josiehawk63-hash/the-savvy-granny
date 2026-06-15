@@ -1,0 +1,73 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/recipes', label: 'Recipes' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+const path = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="logo">
+      <span class="logo-mark">🧺</span>
+      <span class="logo-text">The Savvy Granny</span>
+    </a>
+    <nav>
+      <ul>
+        {links.map((l) => (
+          <li>
+            <a href={l.href} class={path === l.href ? 'active' : ''}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .logo-mark { font-size: 1.6rem; }
+  .logo-text { font-family: var(--font); font-size: 1.35rem; font-weight: 700; }
+  nav ul {
+    display: flex;
+    gap: 1.3rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 600;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+  }
+  nav a:hover, nav a.active {
+    color: var(--brand-dark);
+    border-bottom-color: var(--brand);
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RecipeCard from '../../components/RecipeCard.astro';
+
+const recipes = (await getCollection('recipes', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="All Recipes"
+  description="Browse all of The Savvy Granny's budget-friendly recipes — cheap, wholesome, and weeknight-easy."
+>
+  <section class="container head">
+    <span class="eyebrow">The recipe box</span>
+    <h1>All Recipes</h1>
+    <p class="muted">Wholesome food that's easy on the wallet. {recipes.length} and counting.</p>
+  </section>
+
+  <section class="container">
+    {recipes.length === 0 ? (
+      <p class="muted empty">No recipes yet — the first batch is on its way! 🍳</p>
+    ) : (
+      <div class="grid">
+        {recipes.map((r) => (
+          <RecipeCard
+            href={`/recipes/${r.id}`}
+            title={r.data.title}
+            description={r.data.description}
+            image={r.data.image}
+            cost={r.data.cost}
+            totalTime={r.data.totalTime}
+            category={r.data.category}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .head { padding: 2.5rem 1.25rem 1.5rem; }
+  .head h1 { font-size: 2.4rem; margin: 0.3rem 0 0.3rem; }
+  .empty { padding: 2rem 0; }
+</style>

@@ -1,0 +1,142 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RecipeSchema from '../../components/RecipeSchema.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+import AffiliateProduct from '../../components/AffiliateProduct.astro';
+
+export async function getStaticPaths() {
+  const recipes = await getCollection('recipes', ({ data }) => !data.draft);
+  return recipes.map((recipe) => ({
+    params: { slug: recipe.id },
+    props: { recipe },
+  }));
+}
+
+const { recipe } = Astro.props;
+const d = recipe.data;
+const { Content } = await render(recipe);
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+const absImage = d.image ? new URL(d.image, Astro.site).toString() : undefined;
+const dateStr = d.pubDate.toISOString();
+const displayDate = d.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+
+<BaseLayout title={d.title} description={d.description} image={d.image} type="article">
+  <RecipeSchema
+    slot="head"
+    name={d.title}
+    description={d.description}
+    image={absImage}
+    datePublished={dateStr}
+    prepTime={d.prepTime}
+    cookTime={d.cookTime}
+    totalTime={d.totalTime}
+    servings={d.servings}
+    category={d.category}
+    cuisine={d.cuisine}
+    keywords={d.keywords}
+    ingredients={d.ingredients}
+    instructions={d.instructions}
+  />
+
+  <article class="container recipe">
+    <p><a href="/recipes" class="back">← All recipes</a></p>
+    {d.category && <span class="eyebrow">{d.category}</span>}
+    <h1>{d.title}</h1>
+    <p class="lede muted">{d.description}</p>
+
+    <div class="stats">
+      {d.cost && <div><span class="k">Cost</span><span class="v">💲 {d.cost}</span></div>}
+      {d.prepTime && <div><span class="k">Prep</span><span class="v">{d.prepTime}</span></div>}
+      {d.cookTime && <div><span class="k">Cook</span><span class="v">{d.cookTime}</span></div>}
+      {d.servings && <div><span class="k">Serves</span><span class="v">{d.servings}</span></div>}
+    </div>
+
+    <div class="share-row">
+      <ShareButtons url={pageUrl} title={d.title} image={absImage} />
+      <span class="date muted">Published {displayDate}</span>
+    </div>
+
+    {d.image && <img class="hero" src={d.image} alt={d.imageAlt ?? d.title} />}
+
+    <div class="cols">
+      <section class="ingredients">
+        <h2>Ingredients</h2>
+        <ul>
+          {d.ingredients.map((ing) => <li>{ing}</li>)}
+        </ul>
+      </section>
+
+      <section class="instructions">
+        <h2>Instructions</h2>
+        <ol>
+          {d.instructions.map((step) => <li>{step}</li>)}
+        </ol>
+
+        {d.notes && (
+          <div class="notes">
+            <h3>Granny's Notes</h3>
+            <p>{d.notes}</p>
+          </div>
+        )}
+
+        {/* Any extra markdown body content */}
+        <div class="prose"><Content /></div>
+      </section>
+    </div>
+
+    {d.products.length > 0 && (
+      <section class="products">
+        <h2>Tools &amp; ingredients I love for this recipe</h2>
+        <p class="muted disc-inline">
+          These are affiliate links — if you buy through them I may earn a small
+          commission at no extra cost to you. Thank you for supporting the site! 💛
+        </p>
+        <div class="product-grid">
+          {d.products.map((p) => (
+            <AffiliateProduct name={p.name} url={p.url} description={p.description} image={p.image} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <div class="share-row bottom">
+      <ShareButtons url={pageUrl} title={d.title} image={absImage} />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .recipe { max-width: 820px; padding-top: 1.5rem; padding-bottom: 2rem; }
+  .back { text-decoration: none; font-weight: 600; }
+  .recipe h1 { font-size: 2.3rem; margin: 0.3rem 0 0.5rem; }
+  .lede { font-size: 1.15rem; margin-top: 0; }
+  .stats {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 1rem 1.2rem; margin: 1.2rem 0;
+  }
+  .stats .k { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; }
+  .stats .v { font-weight: 700; }
+  .share-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+  .share-row.bottom { margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
+  .date { font-size: 0.85rem; }
+  .hero { width: 100%; border-radius: var(--radius); margin: 1rem 0 1.5rem; box-shadow: var(--shadow); }
+  .cols { display: grid; grid-template-columns: 1fr 1.4fr; gap: 2rem; }
+  .ingredients ul { padding-left: 1.1rem; }
+  .ingredients li, .instructions li { margin-bottom: 0.5rem; }
+  .instructions ol { padding-left: 1.2rem; }
+  .notes { background: #f6efe0; border-left: 4px solid var(--accent); border-radius: 8px; padding: 0.8rem 1rem; margin-top: 1.2rem; }
+  .notes h3 { margin: 0 0 0.3rem; }
+  .products { margin-top: 2.5rem; }
+  .disc-inline { font-size: 0.85rem; margin-top: -0.3rem; }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 0.8rem; }
+  @media (max-width: 720px) {
+    .cols { grid-template-columns: 1fr; gap: 1rem; }
+    .recipe h1 { font-size: 1.8rem; }
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RecipeCard from '../components/RecipeCard.astro';
+
+const all = (await getCollection('recipes', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const featured = all.filter((r) => r.data.featured).slice(0, 3);
+const latest = all.slice(0, 6);
+const showcase = featured.length ? featured : latest.slice(0, 3);
+---
+
+<BaseLayout
+  title="The Savvy Granny"
+  description="Budget-friendly recipes that don't taste cheap — plus the smart kitchen finds Granny swears by. Eat well, spend less."
+>
+  <section class="hero">
+    <div class="container hero-inner">
+      <span class="eyebrow">Eat well · Spend less</span>
+      <h1>Budget-friendly recipes that don't taste cheap.</h1>
+      <p class="lede">
+        Hi, I'm The Savvy Granny. I share wholesome, wallet-loving recipes and the
+        smart kitchen finds I actually use — so you can feed your people well
+        without blowing the budget.
+      </p>
+      <a class="btn" href="/recipes">Browse the recipes</a>
+    </div>
+  </section>
+
+  <section class="container block">
+    <div class="block-head">
+      <h2>{featured.length ? 'Granny’s favorites' : 'Fresh from the kitchen'}</h2>
+      <a href="/recipes" class="seeall">See all recipes →</a>
+    </div>
+    {showcase.length === 0 ? (
+      <p class="muted empty">Recipes are coming soon — check back shortly! 🍳</p>
+    ) : (
+      <div class="grid">
+        {showcase.map((r) => (
+          <RecipeCard
+            href={`/recipes/${r.id}`}
+            title={r.data.title}
+            description={r.data.description}
+            image={r.data.image}
+            cost={r.data.cost}
+            totalTime={r.data.totalTime}
+            category={r.data.category}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+
+  <section class="container value">
+    <div class="v-card">
+      <span class="v-ico">💸</span>
+      <h3>Real budget math</h3>
+      <p class="muted">Every recipe shows the rough total cost and cost per serving — no guesswork.</p>
+    </div>
+    <div class="v-card">
+      <span class="v-ico">⏱️</span>
+      <h3>Weeknight-friendly</h3>
+      <p class="muted">Simple ingredients and clear steps that fit a busy day.</p>
+    </div>
+    <div class="v-card">
+      <span class="v-ico">🛒</span>
+      <h3>Tried-and-true finds</h3>
+      <p class="muted">The affordable tools and pantry staples I genuinely reach for.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { background: linear-gradient(160deg, #fbf3e4 0%, #f6ead2 100%); border-bottom: 1px solid var(--line); }
+  .hero-inner { padding: 3.5rem 1.25rem 3rem; max-width: 760px; }
+  .hero h1 { font-size: 2.8rem; margin: 0.5rem 0 0.8rem; }
+  .hero .lede { font-size: 1.2rem; max-width: 60ch; margin: 0 0 1.6rem; }
+  .block { padding-top: 2.8rem; }
+  .block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1.2rem; }
+  .block-head h2 { font-size: 1.8rem; margin: 0; }
+  .seeall { text-decoration: none; font-weight: 700; white-space: nowrap; }
+  .empty { padding: 2rem 0; }
+  .value { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .v-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem; box-shadow: var(--shadow); }
+  .v-ico { font-size: 2rem; }
+  .v-card h3 { margin: 0.4rem 0 0.3rem; }
+  .v-card p { margin: 0; }
+  @media (max-width: 600px) { .hero h1 { font-size: 2.1rem; } }
+</style>
