@@ -13,12 +13,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       Got a question, a recipe request, or just want to say hi? I'd love to hear from you.
     </p>
 
-    <!--
-      This form uses Formspree (free) so submissions email you without any backend.
-      To turn it on: create a free form at https://formspree.io, then replace
-      YOUR_FORM_ID below with the one they give you. Until then it's display-only.
-    -->
-    <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <!-- Submissions are emailed via Web3Forms to josiehawk63@gmail.com. -->
+    <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="7350cc9a-1d25-44aa-b6ac-2c8612fd9084" />
+      <input type="hidden" name="subject" value="New contact message — The Savvy Granny" />
+      <input type="hidden" name="from_name" value="The Savvy Granny website" />
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
       <label>
         Your name
         <input type="text" name="name" required />
@@ -33,10 +33,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </label>
       <button type="submit" class="btn">Send message</button>
     </form>
-    <p class="muted note">
-      Heads up: the form needs a free Formspree ID wired in before it can send — I'll
-      walk you through that, or we can swap in a plain email link instead.
-    </p>
   </article>
 </BaseLayout>
 

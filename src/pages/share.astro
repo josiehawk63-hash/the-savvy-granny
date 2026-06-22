@@ -19,12 +19,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="container form-wrap">
     <!--
-      This form uses Web3Forms (free, no account needed — you just get an access key
-      by entering your email at https://web3forms.com). Replace YOUR_WEB3FORMS_ACCESS_KEY
-      below with the key they email you, and submissions will arrive in your inbox.
+      This form uses Web3Forms — submissions are emailed to the account tied to the
+      access key below (josiehawk63@gmail.com). The access_key is a public key, safe
+      to ship in client-side code.
     -->
     <form class="recipe-form" action="https://api.web3forms.com/submit" method="POST">
-      <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+      <input type="hidden" name="access_key" value="7350cc9a-1d25-44aa-b6ac-2c8612fd9084" />
       <input type="hidden" name="subject" value="New recipe submission — The Savvy Granny" />
       <input type="hidden" name="from_name" value="The Savvy Granny website" />
       <!-- Spam honeypot: bots fill this, humans don't see it -->
