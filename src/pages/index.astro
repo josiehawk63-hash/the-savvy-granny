@@ -12,25 +12,28 @@ const showcase = featured.length ? featured : latest.slice(0, 3);
 
 <BaseLayout
   title="The Savvy Granny"
-  description="Budget-friendly recipes that don't taste cheap — plus the smart kitchen finds Granny swears by. Eat well, spend less."
+  description="Share your favorite budget-friendly recipes and discover wallet-loving meals from home cooks everywhere. Cook it, share it, save together."
 >
   <section class="hero">
     <div class="container hero-inner">
-      <span class="eyebrow">Eat well · Spend less</span>
-      <h1>Budget-friendly recipes that don't taste cheap.</h1>
+      <span class="eyebrow">Share · Discover · Save</span>
+      <h1>Share your recipes. Discover budget meals from cooks like you.</h1>
       <p class="lede">
-        Hi, I'm The Savvy Granny. I share wholesome, wallet-loving recipes and the
-        smart kitchen finds I actually use — so you can feed your people well
-        without blowing the budget.
+        The Savvy Granny is a community recipe box for wholesome, wallet-loving food.
+        Got a family favorite that's easy on the budget? <strong>Share it</strong> and help
+        others eat well for less — and browse hundreds of recipes from home cooks everywhere.
       </p>
-      <a class="btn" href="/recipes">Browse the recipes</a>
+      <div class="hero-ctas">
+        <a class="btn" href="/share">🍳 Share your recipe</a>
+        <a class="btn btn-secondary" href="/recipes">Browse all recipes</a>
+      </div>
     </div>
   </section>
 
   <section class="container block">
     <div class="block-head">
-      <h2>{featured.length ? 'Granny’s favorites' : 'Fresh from the kitchen'}</h2>
-      <a href="/recipes" class="seeall">See all recipes →</a>
+      <h2>{featured.length ? 'Community favorites' : 'Latest shared recipes'}</h2>
+      <a href="/recipes" class="seeall">Browse all recipes →</a>
     </div>
     {showcase.length === 0 ? (
       <p class="muted empty">Recipes are coming soon — check back shortly! 🍳</p>
@@ -53,19 +56,27 @@ const showcase = featured.length ? featured : latest.slice(0, 3);
 
   <section class="container value">
     <div class="v-card">
+      <span class="v-ico">🤝</span>
+      <h3>Share what you love</h3>
+      <p class="muted">Got a budget-friendly family favorite? Submit it in minutes and we'll add it to the collection.</p>
+    </div>
+    <div class="v-card">
       <span class="v-ico">💸</span>
       <h3>Real budget math</h3>
-      <p class="muted">Every recipe shows the rough total cost and cost per serving — no guesswork.</p>
+      <p class="muted">Recipes show the rough total cost and cost per serving — so you always know the damage.</p>
     </div>
     <div class="v-card">
-      <span class="v-ico">⏱️</span>
-      <h3>Weeknight-friendly</h3>
-      <p class="muted">Simple ingredients and clear steps that fit a busy day.</p>
+      <span class="v-ico">🌎</span>
+      <h3>Cooks helping cooks</h3>
+      <p class="muted">Discover wholesome, weeknight-friendly meals shared by home cooks everywhere.</p>
     </div>
-    <div class="v-card">
-      <span class="v-ico">🛒</span>
-      <h3>Tried-and-true finds</h3>
-      <p class="muted">The affordable tools and pantry staples I genuinely reach for.</p>
+  </section>
+
+  <section class="container share-cta">
+    <div class="share-cta-inner">
+      <h2>Got a recipe worth sharing?</h2>
+      <p>Help the community eat well for less. Share your favorite budget-friendly dish — it takes just a few minutes.</p>
+      <a class="btn" href="/share">🍳 Share your recipe</a>
     </div>
   </section>
 </BaseLayout>
@@ -75,6 +86,9 @@ const showcase = featured.length ? featured : latest.slice(0, 3);
   .hero-inner { padding: 3.5rem 1.25rem 3rem; max-width: 760px; }
   .hero h1 { font-size: 2.8rem; margin: 0.5rem 0 0.8rem; }
   .hero .lede { font-size: 1.2rem; max-width: 60ch; margin: 0 0 1.6rem; }
+  .hero-ctas { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .btn-secondary { background: var(--surface); color: var(--brand-dark); border: 2px solid var(--brand); }
+  .btn-secondary:hover { background: #fff; color: var(--brand-dark); border-color: var(--brand-dark); }
   .block { padding-top: 2.8rem; }
   .block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1.2rem; }
   .block-head h2 { font-size: 1.8rem; margin: 0; }
@@ -85,5 +99,15 @@ const showcase = featured.length ? featured : latest.slice(0, 3);
   .v-ico { font-size: 2rem; }
   .v-card h3 { margin: 0.4rem 0 0.3rem; }
   .v-card p { margin: 0; }
+  .share-cta { margin-top: 3.5rem; }
+  .share-cta-inner {
+    background: linear-gradient(160deg, #fbf3e4 0%, #f6ead2 100%);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  .share-cta-inner h2 { font-size: 1.9rem; margin: 0 0 0.5rem; }
+  .share-cta-inner p { max-width: 50ch; margin: 0 auto 1.4rem; font-size: 1.08rem; }
   @media (max-width: 600px) { .hero h1 { font-size: 2.1rem; } }
 </style>

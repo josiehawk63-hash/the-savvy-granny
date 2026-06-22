@@ -8,18 +8,18 @@ const recipes = (await getCollection('recipes', ({ data }) => !data.draft))
 ---
 
 <BaseLayout
-  title="All Recipes"
-  description="Browse all of The Savvy Granny's budget-friendly recipes — cheap, wholesome, and weeknight-easy."
+  title="Browse All Recipes"
+  description="Browse every budget-friendly recipe shared by The Savvy Granny community — cheap, wholesome, and weeknight-easy."
 >
   <section class="container head">
-    <span class="eyebrow">The recipe box</span>
-    <h1>All Recipes</h1>
-    <p class="muted">Wholesome food that's easy on the wallet. {recipes.length} and counting.</p>
+    <span class="eyebrow">The community recipe box</span>
+    <h1>Browse All Recipes</h1>
+    <p class="muted">Budget-friendly food shared by home cooks everywhere — {recipes.length} and counting. <a href="/share">Share yours →</a></p>
   </section>
 
   <section class="container">
     {recipes.length === 0 ? (
-      <p class="muted empty">No recipes yet — the first batch is on its way! 🍳</p>
+      <p class="muted empty">No recipes yet — be the first to <a href="/share">share one</a>! 🍳</p>
     ) : (
       <div class="grid">
         {recipes.map((r) => (

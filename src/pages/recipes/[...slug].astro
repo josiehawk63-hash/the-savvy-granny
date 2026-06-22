@@ -31,6 +31,7 @@ const displayDate = d.pubDate.toLocaleDateString('en-US', {
     name={d.title}
     description={d.description}
     image={absImage}
+    author={d.author}
     datePublished={dateStr}
     prepTime={d.prepTime}
     cookTime={d.cookTime}
@@ -58,7 +59,7 @@ const displayDate = d.pubDate.toLocaleDateString('en-US', {
 
     <div class="share-row">
       <ShareButtons url={pageUrl} title={d.title} image={absImage} />
-      <span class="date muted">Published {displayDate}</span>
+      <span class="date muted">{d.author ? `Shared by ${d.author} · ` : ''}Published {displayDate}</span>
     </div>
 
     {d.image && <img class="hero" src={d.image} alt={d.imageAlt ?? d.title} />}

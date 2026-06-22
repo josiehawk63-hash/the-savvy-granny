@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Share Your Recipe"
+  description="Share your favorite budget-friendly recipe with The Savvy Granny community. Submit your dish and help others eat well for less."
+>
+  <section class="hero-mini">
+    <div class="container">
+      <span class="eyebrow">Join the community</span>
+      <h1>Share your recipe</h1>
+      <p class="lede">
+        Got a budget-friendly favorite the world should know about? Fill in the form below.
+        We read every submission and publish the best ones — with credit to you. 💛
+      </p>
+    </div>
+  </section>
+
+  <section class="container form-wrap">
+    <!--
+      This form uses Web3Forms (free, no account needed — you just get an access key
+      by entering your email at https://web3forms.com). Replace YOUR_WEB3FORMS_ACCESS_KEY
+      below with the key they email you, and submissions will arrive in your inbox.
+    -->
+    <form class="recipe-form" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+      <input type="hidden" name="subject" value="New recipe submission — The Savvy Granny" />
+      <input type="hidden" name="from_name" value="The Savvy Granny website" />
+      <!-- Spam honeypot: bots fill this, humans don't see it -->
+      <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+      <div class="fieldset">
+        <h2>About you</h2>
+        <div class="row">
+          <label>
+            Your name <span class="req">*</span>
+            <input type="text" name="Your name" required placeholder="How you'd like to be credited" />
+          </label>
+          <label>
+            Your email <span class="req">*</span>
+            <input type="email" name="Your email" required placeholder="So we can let you know when it's live" />
+          </label>
+        </div>
+      </div>
+
+      <div class="fieldset">
+        <h2>The recipe</h2>
+        <label>
+          Recipe title <span class="req">*</span>
+          <input type="text" name="Recipe title" required placeholder="e.g. Grandma's One-Pot Chili" />
+        </label>
+        <label>
+          Short description <span class="req">*</span>
+          <textarea name="Description" rows="2" required placeholder="A sentence or two about what makes it great (and budget-friendly!)"></textarea>
+        </label>
+        <div class="row">
+          <label>
+            Category
+            <input type="text" name="Category" placeholder="e.g. Dinner, Dessert, Soup" />
+          </label>
+          <label>
+            Serves
+            <input type="text" name="Servings" placeholder="e.g. 4 servings" />
+          </label>
+        </div>
+        <div class="row">
+          <label>
+            Approx. cost
+            <input type="text" name="Cost" placeholder="e.g. $8 total / ~$2 per serving" />
+          </label>
+          <label>
+            Total time
+            <input type="text" name="Total time" placeholder="e.g. 45 minutes" />
+          </label>
+        </div>
+        <label>
+          Ingredients <span class="req">*</span>
+          <textarea name="Ingredients" rows="7" required placeholder="One per line, e.g.&#10;1 lb ground beef&#10;1 onion, diced&#10;2 cans kidney beans"></textarea>
+          <span class="hint">Put each ingredient on its own line.</span>
+        </label>
+        <label>
+          Instructions <span class="req">*</span>
+          <textarea name="Instructions" rows="8" required placeholder="One step per line, e.g.&#10;Brown the beef in a large pot.&#10;Add onion and cook until soft.&#10;Stir in beans and simmer 20 minutes."></textarea>
+          <span class="hint">Put each step on its own line.</span>
+        </label>
+        <label>
+          Tips or notes (optional)
+          <textarea name="Notes" rows="3" placeholder="Any swaps, storage tips, or the story behind it"></textarea>
+        </label>
+        <label>
+          Got a photo? (optional)
+          <input type="text" name="Photo note" placeholder="Reply to our confirmation email with your photo attached" />
+          <span class="hint">If you have a photo, you can email it to us after submitting.</span>
+        </label>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" name="Permission to publish" value="yes" required />
+        <span>I'm happy for The Savvy Granny to publish this recipe with credit to me. <span class="req">*</span></span>
+      </label>
+
+      <button type="submit" class="btn">Submit my recipe 🍳</button>
+      <p class="muted review-note">
+        Every recipe is reviewed before it goes live (usually within a few days) to keep the
+        collection spam-free and tasty. Thanks for sharing! 💛
+      </p>
+    </form>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-mini { background: linear-gradient(160deg, #fbf3e4 0%, #f6ead2 100%); border-bottom: 1px solid var(--line); padding: 2.5rem 0; }
+  .hero-mini h1 { font-size: 2.4rem; margin: 0.3rem 0 0.6rem; }
+  .hero-mini .lede { font-size: 1.12rem; max-width: 60ch; margin: 0; }
+  .form-wrap { max-width: 720px; padding-top: 2rem; padding-bottom: 2.5rem; }
+  .recipe-form { display: flex; flex-direction: column; gap: 1.5rem; }
+  .fieldset { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.3rem 1.4rem; box-shadow: var(--shadow); }
+  .fieldset h2 { margin: 0 0 1rem; font-size: 1.3rem; }
+  .recipe-form label { font-weight: 700; display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+  .recipe-form label:last-child { margin-bottom: 0; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  input[type="text"], input[type="email"], textarea {
+    font: inherit; font-weight: 400; padding: 0.6rem 0.7rem;
+    border: 1px solid var(--line); border-radius: 10px; background: var(--bg);
+  }
+  input:focus, textarea:focus { outline: 2px solid var(--brand); border-color: var(--brand); }
+  textarea { resize: vertical; }
+  .hint { font-weight: 400; font-size: 0.82rem; color: var(--muted); }
+  .req { color: var(--brand); }
+  .consent { flex-direction: row !important; align-items: flex-start; gap: 0.6rem; font-weight: 400; }
+  .consent input { margin-top: 0.25rem; }
+  button { align-self: flex-start; border: none; cursor: pointer; font-size: 1.05rem; }
+  .review-note { font-size: 0.88rem; margin: 0; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+</style>

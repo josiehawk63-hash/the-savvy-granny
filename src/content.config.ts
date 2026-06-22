@@ -9,6 +9,8 @@ const recipes = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
+    // Who shared this recipe (community credit). Defaults to the site when omitted.
+    author: z.string().optional(),
     // Images live in /public/images/recipes/ and are referenced like /images/recipes/file.jpg
     image: z.string().optional(),
     imageAlt: z.string().optional(),
