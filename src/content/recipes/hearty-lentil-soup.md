@@ -2,7 +2,7 @@
 title: "Hearty Lentil Soup"
 description: "A filling, protein-packed lentil soup made with cheap dried lentils and basic veggies. Makes a big batch for around $6."
 pubDate: 2026-06-12
-image: ""
+image: "/images/recipes/hearty-lentil-soup.jpg"
 imageAlt: "A pot of hearty lentil soup"
 prepTime: "10 minutes"
 cookTime: "35 minutes"

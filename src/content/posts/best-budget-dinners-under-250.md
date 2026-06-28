@@ -2,7 +2,7 @@
 title: "6 Cheap & Cozy Budget Dinners Under $2.50 a Serving"
 description: "Our favorite wallet-loving dinners that prove eating well doesn't mean spending a lot. Every one costs under $2.50 per serving — and tastes like more."
 pubDate: 2026-06-27
-image: ""
+image: "/images/recipes/best-budget-dinners.jpg"
 imageAlt: "A spread of budget-friendly dinners"
 keywords: ["cheap dinners", "budget dinner ideas", "meals under $5", "frugal dinner recipes", "cheap family meals"]
 draft: false

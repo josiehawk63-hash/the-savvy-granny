@@ -2,7 +2,7 @@
 title: "Loaded Baked Potato Bar on a Budget"
 description: "Crispy-skinned baked potatoes with cheap, customizable toppings — a fun, filling dinner that feeds four for around $6."
 pubDate: 2026-06-25
-image: ""
+image: "/images/recipes/loaded-baked-potatoes.jpg"
 imageAlt: "A loaded baked potato topped with cheese, beans, and green onion"
 prepTime: "5 minutes"
 cookTime: "55 minutes"

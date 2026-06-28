@@ -2,7 +2,7 @@
 title: "Fluffy Buttermilk Pancakes from Scratch"
 description: "Light, fluffy homemade pancakes from basic pantry ingredients — cheaper and tastier than any box mix, for about $2 a batch."
 pubDate: 2026-06-23
-image: ""
+image: "/images/recipes/fluffy-buttermilk-pancakes.jpg"
 imageAlt: "A stack of fluffy pancakes with syrup"
 prepTime: "5 minutes"
 cookTime: "15 minutes"

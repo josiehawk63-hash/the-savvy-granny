@@ -2,7 +2,7 @@
 title: "One-Pan Sausage and Veggie Bake"
 description: "A hearty sheet-pan dinner of sausage, potatoes, and vegetables — one pan, minimal cleanup, and about $9 to feed a family of four."
 pubDate: 2026-06-22
-image: ""
+image: "/images/recipes/sheet-pan-sausage-veggies.jpg"
 imageAlt: "Sheet pan with roasted sausage, potatoes, and vegetables"
 prepTime: "10 minutes"
 cookTime: "35 minutes"

@@ -2,7 +2,7 @@
 title: "Cheesy Black Bean Quesadillas"
 description: "Crispy, cheesy black bean quesadillas that come together in 15 minutes for under $4 — a protein-packed meal from cheap pantry staples."
 pubDate: 2026-06-20
-image: ""
+image: "/images/recipes/black-bean-quesadillas.jpg"
 imageAlt: "Golden crispy black bean quesadilla wedges"
 prepTime: "5 minutes"
 cookTime: "10 minutes"

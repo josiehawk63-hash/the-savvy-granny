@@ -2,7 +2,7 @@
 title: "Creamy Tomato Soup from Pantry Staples"
 description: "A velvety, restaurant-worthy tomato soup made almost entirely from canned and pantry ingredients — ready in 25 minutes for about $5."
 pubDate: 2026-06-18
-image: ""
+image: "/images/recipes/creamy-tomato-soup.jpg"
 imageAlt: "A bowl of creamy tomato soup with a swirl of cream"
 prepTime: "5 minutes"
 cookTime: "20 minutes"

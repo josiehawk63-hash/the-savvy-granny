@@ -2,7 +2,7 @@
 title: "5-Ingredient Pantry Pasta"
 description: "A cozy, garlicky pasta made from cheap pantry staples — on the table in 20 minutes for about $4 total."
 pubDate: 2026-06-10
-image: ""
+image: "/images/recipes/budget-pantry-pasta.jpg"
 imageAlt: "A bowl of garlicky pantry pasta"
 prepTime: "5 minutes"
 cookTime: "15 minutes"

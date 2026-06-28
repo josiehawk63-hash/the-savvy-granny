@@ -2,7 +2,7 @@
 title: "Banana Oat Breakfast Muffins"
 description: "Moist, naturally sweet banana oat muffins that rescue overripe bananas — a wholesome grab-and-go breakfast for about $3 a dozen."
 pubDate: 2026-06-26
-image: ""
+image: "/images/recipes/banana-oat-muffins.jpg"
 imageAlt: "A tray of golden banana oat muffins"
 prepTime: "10 minutes"
 cookTime: "20 minutes"
