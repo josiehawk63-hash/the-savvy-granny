@@ -41,4 +41,19 @@ const recipes = defineCollection({
   }),
 });
 
-export const collections = { recipes };
+// "Collections" are roundup/blog posts — e.g. "12 Cheap Dinners Under $5".
+// Great for SEO, Pinterest, and grouping affiliate product picks.
+const posts = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
+    keywords: z.array(z.string()).default([]),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { recipes, posts };

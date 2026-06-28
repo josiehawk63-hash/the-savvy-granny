@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const d = post.data;
+const { Content } = await render(post);
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+const absImage = d.image ? new URL(d.image, Astro.site).toString() : undefined;
+const displayDate = d.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={d.title} description={d.description} image={d.image} type="article">
+  <article class="container post">
+    <p><a href="/collections" class="back">← All collections</a></p>
+    <span class="eyebrow">Collection</span>
+    <h1>{d.title}</h1>
+    <p class="lede muted">{d.description}</p>
+    <div class="share-row">
+      <ShareButtons url={pageUrl} title={d.title} image={absImage} />
+      <span class="date muted">{displayDate}</span>
+    </div>
+    {d.image && <img class="hero" src={d.image} alt={d.imageAlt ?? d.title} />}
+    <div class="prose">
+      <Content />
+    </div>
+    <div class="share-row bottom">
+      <ShareButtons url={pageUrl} title={d.title} image={absImage} />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post { max-width: 760px; padding-top: 1.5rem; padding-bottom: 2.5rem; }
+  .back { text-decoration: none; font-weight: 600; }
+  .post h1 { font-size: 2.4rem; margin: 0.3rem 0 0.5rem; }
+  .lede { font-size: 1.15rem; margin-top: 0; }
+  .share-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+  .share-row.bottom { margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
+  .date { font-size: 0.85rem; }
+  .hero { width: 100%; border-radius: var(--radius); margin: 1rem 0 1.5rem; box-shadow: var(--shadow); }
+  .prose { font-size: 1.06rem; line-height: 1.7; }
+  .prose :global(h2) { font-size: 1.5rem; margin: 1.8rem 0 0.6rem; }
+  .prose :global(h3) { font-size: 1.2rem; margin: 1.4rem 0 0.4rem; }
+  .prose :global(p) { margin: 0.8rem 0; }
+  .prose :global(ul) { padding-left: 1.2rem; }
+  .prose :global(li) { margin-bottom: 0.4rem; }
+  .prose :global(hr) { border: none; border-top: 1px solid var(--line); margin: 2rem 0; }
+  .prose :global(a) { font-weight: 600; }
+</style>

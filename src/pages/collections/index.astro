@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Recipe Collections & Guides"
+  description="Budget recipe roundups and money-saving cooking guides from The Savvy Granny — themed collections to help you eat well for less."
+>
+  <section class="container head">
+    <span class="eyebrow">Roundups &amp; guides</span>
+    <h1>Collections</h1>
+    <p class="muted">Handpicked recipe roundups and money-saving cooking guides.</p>
+  </section>
+
+  <section class="container">
+    {posts.length === 0 ? (
+      <p class="muted empty">Collections are coming soon! 📚</p>
+    ) : (
+      <div class="post-list">
+        {posts.map((p) => (
+          <a class="post-card" href={`/collections/${p.id}/`}>
+            {p.data.image
+              ? <img class="thumb" src={p.data.image} alt={p.data.imageAlt ?? p.data.title} loading="lazy" />
+              : <div class="thumb-fallback">📚</div>}
+            <div class="body">
+              <h2>{p.data.title}</h2>
+              <p class="muted">{p.data.description}</p>
+              <span class="read">Read the collection →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .head { padding: 2.5rem 1.25rem 1.5rem; }
+  .head h1 { font-size: 2.4rem; margin: 0.3rem 0 0.3rem; }
+  .empty { padding: 2rem 0; }
+  .post-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .post-card {
+    display: flex; gap: 1.3rem; align-items: center;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+    text-decoration: none; color: inherit; transition: transform 0.15s ease;
+  }
+  .post-card:hover { transform: translateY(-2px); }
+  .post-card .thumb, .post-card .thumb-fallback { width: 200px; aspect-ratio: 16/10; object-fit: cover; flex: none; }
+  .post-card .thumb-fallback { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f6efe0, #efe3cd); font-size: 2.5rem; }
+  .post-card .body { padding: 1rem 1.2rem 1rem 0; }
+  .post-card h2 { margin: 0 0 0.4rem; font-size: 1.3rem; }
+  .post-card .body p { margin: 0 0 0.5rem; font-size: 0.95rem; }
+  .read { color: var(--brand-dark); font-weight: 700; font-size: 0.9rem; }
+  @media (max-width: 560px) {
+    .post-card { flex-direction: column; align-items: stretch; }
+    .post-card .thumb, .post-card .thumb-fallback { width: 100%; }
+    .post-card .body { padding: 0 1.2rem 1.2rem; }
+  }
+</style>
